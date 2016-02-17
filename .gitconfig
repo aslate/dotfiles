@@ -1,0 +1,51 @@
+[branch "master"]
+	rebase = true
+
+[branch]
+	autosetuprebase = always
+
+[core]
+	excludesfile = ~/.gitignore
+	editor = vim
+	autocrlf = input
+
+[push]
+	default = current
+	
+[rebase]
+	autosquash = true
+
+[merge]
+    keepBackup = false
+	tool = p4merge
+
+[mergetool]
+    prompt = false
+
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[mergetool "p4merge"]
+	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge "\"$PWD/$BASE\"" "\"$PWD/$REMOTE\"" "\"$PWD/$LOCAL\"" "\"$PWD/$MERGED\""
+	keepTemporaries = false
+	trustExitCode = false
+	keepBackup = false
+
+[color]
+	ui = true
+
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
+	lg = log -p
+	lol = log --graph --pretty=format:'%C(yellow)%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cblue(%cr)%Creset' --abbrev-commit --date=relative
+	lola = log --graph --pretty=format:'%C(yellow)%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cblue(%cr)%Creset' --abbrev-commit --date=relative --all
+	ls = ls-files
+	sshow = "!f() { git stash show stash^{/$*} -p; }; f"
+	sapply = "!f() { git stash apply stash^{/$*}; }; f"
+	clean-no-idea = clean -xdn -e .idea -e *.iml
+	clean-no-project = clean -xd -e .idea -e *.iml -e node_modules
